@@ -1,0 +1,42 @@
+.main {
+  display: flex;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 5rem;
+  height: calc(100vh - 5rem);
+  align-items: center;
+  justify-content: space-between;
+  min-width: 400px;
+
+  @media (max-width: 1080px) {
+    // background-color: tomato;
+    flex-direction: column;
+    height: auto;
+    gap: 5rem;
+    padding: 5rem;
+
+  }
+}
+
+
+.welcomeSection {
+  min-width: 100px;
+
+  span {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 4.5rem;
+    font-weight: 900;
+    margin-top: 2.5rem;
+  }
+
+  p {
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    margin-top: 1.5rem;
+  }
+}
