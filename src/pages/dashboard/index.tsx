@@ -11,7 +11,7 @@ import ConverterMinutesToHours from "../../utils/ConverterMinutesToHours";
 import styles from './styles.module.scss'
 import { CreateTeacherModel } from "../../components/CreateTeacherModel";
 import { CreateCourseModal } from "../../components/CreateCourseModal";
-
+import { CreateAnswerModal } from "../../components/CreateAnswerModal";
 
 interface CoursesProps {
   id: string;
@@ -29,6 +29,14 @@ interface CoursesProps {
     courseId: string;
     text: string;
     open: boolean;
+    student: {
+      id: string;
+      name: string;
+    }
+    ansers: {
+      id: string,
+      text: string,
+    }[]
   }[]
 }
 
@@ -37,12 +45,15 @@ interface PagesProps {
   take: number
 }
 
+
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
   const [courses, setCourses] = useState<CoursesProps[]>([])
   const [offset, setOffset] = useState<number>(0)
   const [modalOpenCreateTeacher, setModalOpenCreateTeacher] = useState(false)
   const [modalOpenCreateCourse, setModalOpenCreateCourse] = useState(false)
+  const [modalOpenCreateAnswer, setModalOpenCreateAnswer] = useState(false)
+  const [courseSelected, setCourseSelected] = useState<CoursesProps>({} as CoursesProps)
   const [updatePage, setUpdatePage] = useState(false)
   const [pagesProps, setPagesProps] = useState<PagesProps>({
     take: 5,
@@ -50,7 +61,7 @@ export default function Dashboard() {
   })
   useEffect(() => {
     if (user.userType === 'student') {
-      Router.push('/courses')
+      Router.push('/teacher/courses')
     }
   }, [user.userType])
 
@@ -63,11 +74,13 @@ export default function Dashboard() {
           }
         })
 
+        console.log(response.data.courses)
+
         const coursesFormated = response.data.courses.map((course: CoursesProps) => {
           return {
             ...course,
             duration: ConverterMinutesToHours(course.durationInMinutes),
-            questionOpen: course.questions.filter(question => question.open === true).length
+            questionsOpen: course.questions.filter(question => question.open === true).length
           }
         })
 
@@ -87,6 +100,11 @@ export default function Dashboard() {
     loadData()
   }, [offset, updatePage])
 
+  const HandleCourseSlected = (courseData) => {
+    setModalOpenCreateAnswer(true)
+    setCourseSelected(courseData)
+  }
+
   return (
     <>
       <Head>
@@ -99,9 +117,10 @@ export default function Dashboard() {
         </div>
         <ul className={styles.ul}>
           {!!courses && courses.map(course =>
-            <li key={course.id}>
+            <li key={course.id} onClick={() => HandleCourseSlected(course)}>
               <h1>Curso: {course.title} <span>- {course.duration}</span></h1>
-              <p>Esse curso possui <span>{course.questionsOpen}</span> sem resposta</p>
+              <p>Perguntas aguardando respostas:  <span>{course.questionsOpen}</span></p>
+              {course.questionsOpen > 0 && <p className={styles.alert}>{course.questionsOpen}</p>}
             </li>)}
         </ul>
         <Pagination
@@ -122,24 +141,31 @@ export default function Dashboard() {
           setUpdatePage={setUpdatePage}
         />
       )}
+      {(modalOpenCreateAnswer && !!courseSelected.id) && (
+        <CreateAnswerModal
+          setModalOpen={setModalOpenCreateAnswer}
+          setUpdatePage={setUpdatePage}
+          course={courseSelected}
+        />
+      )}
     </>
 
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { 'lxp.token': token } = parseCookies(ctx)
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   const { 'lxp.token': token } = parseCookies(ctx)
 
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      }
-    }
-  }
+//   if (!token) {
+//     return {
+//       redirect: {
+//         destination: '/',
+//         permanent: false,
+//       }
+//     }
+//   }
 
-  return {
-    props: {}
-  }
-}
+//   return {
+//     props: {}
+//   }
+// }
