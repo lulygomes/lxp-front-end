@@ -10,6 +10,7 @@ import api from "../../services/api";
 import ConverterMinutesToHours from "../../utils/ConverterMinutesToHours";
 import styles from './styles.module.scss'
 import { CreateTeacherModel } from "../../components/CreateTeacherModel";
+import { CreateCourseModal } from "../../components/CreateCourseModal";
 
 
 interface CoursesProps {
@@ -41,6 +42,8 @@ export default function Dashboard() {
   const [courses, setCourses] = useState<CoursesProps[]>([])
   const [offset, setOffset] = useState<number>(0)
   const [modalOpenCreateTeacher, setModalOpenCreateTeacher] = useState(false)
+  const [modalOpenCreateCourse, setModalOpenCreateCourse] = useState(false)
+  const [updatePage, setUpdatePage] = useState(false)
   const [pagesProps, setPagesProps] = useState<PagesProps>({
     take: 5,
     total: 0
@@ -82,7 +85,7 @@ export default function Dashboard() {
       }
     }
     loadData()
-  }, [offset])
+  }, [offset, updatePage])
 
   return (
     <>
@@ -91,7 +94,7 @@ export default function Dashboard() {
       </Head>
       <main className={styles.main}>
         <div className={styles.actionDiv}>
-          <button>Adicionar Curso</button>
+          <button onClick={() => setModalOpenCreateCourse(true)} >Adicionar Curso</button>
           <button onClick={() => setModalOpenCreateTeacher(true)}>Adicionar Professor</button>
         </div>
         <ul className={styles.ul}>
@@ -111,6 +114,12 @@ export default function Dashboard() {
       {modalOpenCreateTeacher && (
         <CreateTeacherModel
           setModalOpen={setModalOpenCreateTeacher}
+        />
+      )}
+      {modalOpenCreateCourse && (
+        <CreateCourseModal
+          setModalOpen={setModalOpenCreateCourse}
+          setUpdatePage={setUpdatePage}
         />
       )}
     </>
