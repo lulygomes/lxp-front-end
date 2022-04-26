@@ -41,7 +41,7 @@ interface QuestionsData {
     id: string;
     name: string;
   }
-  ansers: {
+  answers: {
     id: string,
     text: string,
   }[]
@@ -104,7 +104,7 @@ export function CreateAnswerModal({ setModalOpen, course, setUpdatePage }: Modal
 
                   <p>{question.student.name} pergunta: </p>
                   <p>{question.text}</p>
-                  {question.ansers.map(anser =>
+                  {question.answers.map(anser =>
                     <p key={anser.id}>
                       <span>Resposta: </span> {anser.text}
                     </p>)}

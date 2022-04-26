@@ -18,7 +18,7 @@ interface CourseData {
   durationInMinutes: number,
 }
 
-export function CreateCourseModal({ setModalOpen }: ModalProps) {
+export function CreateCourseModal({ setModalOpen, setUpdatePage }: ModalProps) {
   const { user } = useContext(AuthContext)
   const { register, handleSubmit } = useForm()
 
@@ -31,6 +31,7 @@ export function CreateCourseModal({ setModalOpen }: ModalProps) {
       })
 
       setModalOpen(false)
+      setUpdatePage(current => !current)
       toast.success("Cadastro realizado com sucesso")
     } catch (err) {
 

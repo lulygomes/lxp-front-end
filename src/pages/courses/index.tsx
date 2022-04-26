@@ -26,7 +26,7 @@ interface CoursesProps {
       id: string,
       name: string,
     },
-    ansers: {
+    answers: {
       id: string,
       text: string,
     }[]
