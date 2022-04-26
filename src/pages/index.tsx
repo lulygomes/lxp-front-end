@@ -1,8 +1,18 @@
 import Head from "next/head";
-import { Login } from "../components/Loging";
-import styles from './styles/Home.module.scss'
+import Router from "next/router";
+import { useContext, useEffect } from "react";
+import { Login } from "../components/Login";
+import { AuthContext } from "../contexts/AuthContext";
+import styles from './Home.module.scss'
 
 export default function Home() {
+  const { user } = useContext(AuthContext)
+
+  useEffect(() => {
+    if (user?.userType != 'student') Router.push('/dashboard')
+    if (user?.userType === 'student') Router.push('/courses')
+  }, [])
+
   return (
     <>
       <Head>
@@ -17,7 +27,7 @@ export default function Home() {
           <p>Nisi voluptas voluptates dolor laboriosam?</p>
         </section>
         <section>
-          <Login/>
+          <Login />
         </section>
       </main>
     </>
