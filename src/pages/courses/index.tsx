@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { GetServerSideProps } from "next"
 import Head from "next/head";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Pagination } from "../../components/pagination";
 import api from "../../services/api"
 import ConverterMinutesToHours from "../../utils/ConverterMinutesToHours";

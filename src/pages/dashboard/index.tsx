@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next"
+import { toast } from 'react-toastify';
 import Head from "next/head";
 import Router from "next/router";
 import { parseCookies } from "nookies"
@@ -8,6 +9,7 @@ import { AuthContext } from "../../contexts/AuthContext"
 import api from "../../services/api";
 import ConverterMinutesToHours from "../../utils/ConverterMinutesToHours";
 import styles from './styles.module.scss'
+import { CreateTeacherModel } from "../../components/CreateTeacherModel";
 
 
 interface CoursesProps {
@@ -38,6 +40,7 @@ export default function Dashboard() {
   const { user } = useContext(AuthContext);
   const [courses, setCourses] = useState<CoursesProps[]>([])
   const [offset, setOffset] = useState<number>(0)
+  const [modalOpenCreateTeacher, setModalOpenCreateTeacher] = useState(false)
   const [pagesProps, setPagesProps] = useState<PagesProps>({
     take: 5,
     total: 0
@@ -46,7 +49,7 @@ export default function Dashboard() {
     if (user.userType === 'student') {
       Router.push('/courses')
     }
-  }, [])
+  }, [user.userType])
 
   useEffect(() => {
     async function loadData() {
@@ -75,7 +78,7 @@ export default function Dashboard() {
           behavior: "smooth"
         })
       } catch (error) {
-        //TODO tratativa de erro
+        toast.error('Erro ao carregar dados.')
       }
     }
     loadData()
@@ -87,6 +90,10 @@ export default function Dashboard() {
         <title>Painel de Controle | Learning Experience Platform</title>
       </Head>
       <main className={styles.main}>
+        <div className={styles.actionDiv}>
+          <button>Adicionar Curso</button>
+          <button onClick={() => setModalOpenCreateTeacher(true)}>Adicionar Professor</button>
+        </div>
         <ul className={styles.ul}>
           {!!courses && courses.map(course =>
             <li key={course.id}>
@@ -101,6 +108,11 @@ export default function Dashboard() {
           setOffset={setOffset}
         />
       </main>
+      {modalOpenCreateTeacher && (
+        <CreateTeacherModel
+          setModalOpen={setModalOpenCreateTeacher}
+        />
+      )}
     </>
 
   )
