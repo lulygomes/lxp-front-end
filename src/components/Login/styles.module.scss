@@ -7,20 +7,6 @@
   border-radius: 1rem;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 
-  input {
-    line-height: 2.5rem;
-    padding: .5rem;
-    border: solid 1px var(--gray400);
-    border-radius: .5rem;
-    font-size: 1.3rem;
-    line-height: 2.5rem;
-
-
-    &+input {
-      margin-top: 1.5rem;
-    }
-  }
-
   button {
     line-height: 1.5rem;
     padding: .5rem;
@@ -31,6 +17,11 @@
     border-radius: .5rem;
     font-size: 1.3rem;
     line-height: 2.5rem;
+    transition: ease filter .5s;
+
+    &:hover {
+      filter: contrast(150%);
+    }
 
   }
 
@@ -42,5 +33,11 @@
 
   a {
     margin: .5rem auto;
+    cursor: pointer;
+    transition: ease filter .5s;
+
+    &:hover {
+      filter: contrast(150%);
+    }
   }
 }
