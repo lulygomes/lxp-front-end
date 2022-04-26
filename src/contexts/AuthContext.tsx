@@ -31,7 +31,7 @@ export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState<UserData>({} as UserData)
-  const isAuthenticated = !!user
+  const isAuthenticated = !!user.id
 
   useEffect(() => {
     const { 'lxp.token': token } = parseCookies()
