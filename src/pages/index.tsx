@@ -11,7 +11,8 @@ export default function Home() {
   const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
-    if (user?.userType != 'student') Router.push('/dashboard')
+    if (user?.userType === 'teacher') Router.push('/dashboard')
+    if (user?.userType === 'adm') Router.push('/dashboard')
     if (user?.userType === 'student') Router.push('/courses')
   }, [user?.userType])
 
