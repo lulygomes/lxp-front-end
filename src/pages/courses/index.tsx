@@ -76,7 +76,7 @@ export default function Courses() {
           behavior: "smooth"
         })
       } catch (e) {
-        console.log(e.response)
+
       }
     }
     loadData()

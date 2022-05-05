@@ -16,7 +16,8 @@
     "react-dom": "18.0.0",
     "react-hook-form": "^7.30.0",
     "react-toastify": "^8.2.0",
-    "sass": "^1.50.1"
+    "sass": "^1.50.1",
+    "socket.io-client": "^4.5.0"
   },
   "devDependencies": {
     "@types/cookie": "^0.5.1",

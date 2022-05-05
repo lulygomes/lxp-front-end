@@ -78,8 +78,6 @@
       }
     }
 
-
-
     button {
       line-height: 1.5rem;
       padding: .5rem;
@@ -95,6 +93,27 @@
       &:hover {
         filter: contrast(150%);
       }
+    }
+
+    p.or {
+      margin: .5rem auto;
+      color: var(--gray400)
+    }
+
+    a.chat {
+      background: var(--blue600);
+      border-radius: 5rem;
+      padding: 1rem;
+      text-align: center;
+      color: var(--white);
+      font-size: 1.3rem;
+      margin-top: 1rem;
+      transition: ease filter .5s;
+
+      &:hover {
+        filter: contrast(150%);
+      }
+
     }
   }
 }

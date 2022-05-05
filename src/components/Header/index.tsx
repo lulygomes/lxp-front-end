@@ -11,6 +11,7 @@ export function Header() {
       <nav>
         <Link href="/">Início</Link>
         <Link href="/courses">Cursos</Link>
+        <Link href="/chat">Chat</Link>
         {(user?.userType === 'teacher'
           || user?.userType === "adm"
         ) && (

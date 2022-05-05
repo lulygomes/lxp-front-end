@@ -74,8 +74,6 @@ export default function Dashboard() {
           }
         })
 
-        console.log(response.data.courses)
-
         const coursesFormated = response.data.courses.map((course: CoursesProps) => {
           return {
             ...course,

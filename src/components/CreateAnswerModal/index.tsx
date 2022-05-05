@@ -56,7 +56,6 @@ export function CreateAnswerModal({ setModalOpen, course, setUpdatePage }: Modal
 
   const handleAnswerSubmit = async ({ text }: AnswerData) => {
     try {
-      console.log(text)
       if (!questionSelected.id) {
         toast.error('Selecione uma pergunta')
         return
