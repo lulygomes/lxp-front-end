@@ -50,22 +50,13 @@ export default function Chat() {
       })
     }
 
-  }, [user])
-
-  useEffect(() => {
     socket.on('new_user', (newUser) => {
       const existInList = usersList.find(user => user.user_id === newUser.user_id)
       if (!existInList && newUser.user_id !== user.id) {
         setUsersList([...usersList, newUser])
       }
     })
-  }, [user.id, usersList])
 
-  useEffect(() => {
-    socket.on
-  }, [])
-
-  useEffect(() => {
     socket.on("message", (data => {
       setMessages(current => {
         const messageInList = current.find(msg => msg._id === data._id)
@@ -74,16 +65,16 @@ export default function Chat() {
         }
         return [...current, data]
       });
-      scrollToBottom()
     }))
-  }, [])
+
+  }, [user.email, user.id, user.name])
+
 
   const handleSelectUser = useCallback((idUser: string) => {
     setMessages([])
     socket.emit("start_chat", { idUser }, (response) => {
       setIdChatRoom(response.room.idChatRoom)
       setMessages(response.messages)
-      scrollToBottom()
     })
   }, [])
 
@@ -101,9 +92,6 @@ export default function Chat() {
 
   }, [idChatRoom, text])
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
   return (
     <main className={styles.container}>
       <div className={styles.menuContent}>
@@ -123,7 +111,7 @@ export default function Chat() {
       <div className={styles.chatContent}>
         <div id="chatBox" className={styles.chatBox}>
           <ul>
-            {messages && (messages.map(message => (
+            {messages.length > 0 && (messages.map(message => (
               <li
                 className={user.id === message.from.user_id && styles.myMessage}
                 key={message._id} >

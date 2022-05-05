@@ -74,6 +74,11 @@
       }
     }
   }
+
+  @media(max-width: 600px) {
+    width: 90%;
+    height: 90%;
+  }
 }
 
 .ul {
@@ -91,6 +96,15 @@
     margin-bottom: 1rem;
     box-shadow: 0px 10px 21px -2px rgba(0, 0, 0, 0.1);
     transition: all ease .5s;
+
+    p {
+      margin: .2rem 0;
+
+      span {
+        font-weight: 500;
+        margin: .5rem 0 0 .2rem;
+      }
+    }
 
     &:hover {
       border: solid 1px var(--white);

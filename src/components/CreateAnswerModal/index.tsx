@@ -101,7 +101,7 @@ export function CreateAnswerModal({ setModalOpen, course, setUpdatePage }: Modal
                   onClick={() => handleSelectedQuestion(question)}
                 >
 
-                  <p>{question.student.name} pergunta: </p>
+                  <p>{question.student.name} <span>pergunta:</span> </p>
                   <p>{question.text}</p>
                   {question.answers.map(anser =>
                     <p key={anser.id}>

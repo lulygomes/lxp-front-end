@@ -93,15 +93,6 @@ export function CourseModal({ setModalOpen, courseData, setUpdatePage }: ModalPr
 
             <button type="submit">Perguntar</button>
           </form>
-          <p className={styles.or}>ou</p>
-          <Link href={{
-            pathname: '/chat',
-            query: {
-              idUser: courseData.teacher.id,
-            }
-          }}>
-            <a className={styles.chat}> Iniciar um Chat </a>
-          </Link>
         </div>
         <button
           onClick={() => setModalOpen(false)}
